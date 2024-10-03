@@ -1,0 +1,17 @@
+<launch>
+
+  <!-- Run self-filter -->
+  <include file="$(find turtlebot2i_bringup)/launch/URG.launch"/>
+  <!-- Run the map server -->
+  <arg name="map_file" default="$(find turtlebot_navigation)/maps/first_map.yaml"/>
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+
+  <!--- Run AMCL -->
+  <include file="$(find turtlebot_navigation)/launch/amcl_demo.launch">
+    <arg name="scan_topic" value="scan" />
+  </include>
+
+  <!--- Run Move Base -->
+  <include file="$(find turtlebot_navigation)/laser/move_base_turtlebot_laser.launch" />
+
+</launch>
